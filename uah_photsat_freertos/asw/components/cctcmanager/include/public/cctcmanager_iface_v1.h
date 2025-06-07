@@ -40,6 +40,7 @@ public:
 	 */
 	 enum TEDROOMCCTCManagerSignal { EDROOMSignalTimeout, 
 							EDROOMSignalDestroy, 
+							SSObsMng_TC, 
 							EDROOMIRQsignal, 
 							SBKGTC, 
 							SHK_FDIR_TC, 
@@ -92,6 +93,8 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
+	//! Obs_Mng_Ctrl Component Port
+	CEDROOMInterface	Obs_Mng_Ctrl;
 	//! BKGExecCtrl Component Port
 	CEDROOMInterface	BKGExecCtrl;
 	//! HK_FDIRCtrl Component Port
@@ -209,6 +212,7 @@ public:
 	 */
 	enum TEDROOMCCTCManagerSignal { EDROOMSignalTimeout,
 		EDROOMSignalDestroy,
+		SSObsMng_TC,
 		EDROOMIRQsignal,
 		SBKGTC,
 		SHK_FDIR_TC,
@@ -227,6 +231,7 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
+		CEDROOMInterface & Obs_Mng_Ctrl;
 		CEDROOMInterface & BKGExecCtrl;
 		CEDROOMInterface & HK_FDIRCtrl;
 		CEDROOMIRQInterface & RxTC;
@@ -247,6 +252,7 @@ public:
 			HandleTC_ToReboot,
 			HandleTC_FwdHK_FDIRTC,
 			HandleTC_FwdToBKGTCExec,
+			HandleTC_FwdObsMngTC,
 			HandleTC_ExecPrioTC,
 			NewEvAction,
 			EDROOMMemoryTrans };
@@ -317,6 +323,11 @@ public:
 		/**
 		 * \brief  
 		 */
+		void	FFwdObsMngTC();
+
+		/**
+		 * \brief  
+		 */
 		void	FFwdToBKGTCExec();
 
 		/**
@@ -358,6 +369,11 @@ public:
 		 * \brief  
 		 */
 		bool	GAcceptTC();
+
+		/**
+		 * \brief  
+		 */
+		bool	GFwdObsMngTC();
 
 		/**
 		 * \brief  

@@ -35,7 +35,7 @@ public:
 	 */
 	 enum TEDROOMCCObsMngSignal { EDROOMSignalTimeout, 
 							EDROOMSignalDestroy, 
-							SObservTC };
+							SSObsMng_TC };
 
 	/**
 	 * \class CCObsMng::CEDROOMMemory
@@ -90,8 +90,8 @@ public:
 	//******************  Component Communication Ports *******************
 	// ********************************************************************
 
-	//! ObservCtrl Component Port
-	CEDROOMInterface	ObservCtrl;
+	//! Obs_Mng_Ctrl Component Port
+	CEDROOMInterface	Obs_Mng_Ctrl;
 
 
 	// ********************************************************************
@@ -174,7 +174,7 @@ public:
 	 */
 	enum TEDROOMCCObsMngSignal { EDROOMSignalTimeout,
 		EDROOMSignalDestroy,
-		SObservTC };
+		SSObsMng_TC };
 
 
 		friend class CCObsMng;
@@ -189,29 +189,28 @@ public:
 		CEDROOMMessage * &MsgBack;
 
 		//!Component ports
-		CEDROOMInterface & ObservCtrl;
+		CEDROOMInterface & Obs_Mng_Ctrl;
 		CEDROOMTimingInterface & ObservTimer;
 		CEDROOMTimingInterface & AttCtrlTimer;
 
 
 		//! State Identifiers
 		enum TEDROOMStateID{I,
-			Standby,
+			StandBy,
 			Observation};
 
 		//!Transition Identifiers
 		enum TEDROOMTransitionID{Init,
-			ExecTC,
 			DoAttCtrl,
-			DoAttCtrl_ToObservation,
-			DoAttCtrl_ToStandBy,
-			TakeImage,
-			TakeImage_LastImage,
-			TakeImage_NextImage,
+			DoAttCtrl_ReadyToObs,
+			DoAttCtrl_ProgAttCtrl,
+			IsLastImage,
+			IsLastImage_LastImage,
+			IsLastImage_NoLastImage,
+			ExecObsMng,
 			EDROOMMemoryTrans };
 
 		//!Constants
-		const Pr_Time CAttitudePeriod;
 		const Pr_Time CImageInterval;
 
 
@@ -266,7 +265,7 @@ public:
 		/**
 		 * \brief  
 		 */
-		void	FExecCameraMngTC();
+		void	FExecObsMng_TC();
 
 		/**
 		 * \brief  
@@ -349,13 +348,13 @@ public:
 
 		// ***********************************************************************
 
-		// Leaf SubState Standby
+		// Leaf SubState StandBy
 
 		// ***********************************************************************
 
 
 
-		TEDROOMTransId EDROOMStandbyArrival();
+		TEDROOMTransId EDROOMStandByArrival();
 
 		// ***********************************************************************
 
