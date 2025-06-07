@@ -237,7 +237,7 @@ bool	CCTCManager::EDROOM_CTX_Top_0::GFwdObsMngTC()
 
 {
 
-return VTCExecCtrl.ObsMng();
+return VTCExecCtrl.IsObsMng();
 
 }
 
