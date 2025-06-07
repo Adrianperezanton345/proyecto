@@ -3,7 +3,7 @@
 
 //TODO Add in EDROOM model the enumerate to handle ST[129] TCs
 enum TTCExecCtrl {
-	ExecCtrlPrioTC, ExecCtrlReboot, ExecCtrlHK_FDIRTC, ExecCtrlBKGTC
+	ExecCtrlPrioTC, ExecCtrlReboot, ExecCtrlHK_FDIRTC, ExecCtrlBKGTC, ExecCtrlObsMng
 };
 
 class CDTCExecCtrl{
@@ -49,6 +49,7 @@ class CDTCExecCtrl{
 	 * \return true if it is a Background telecommand
 	 *
 	 */
+	bool IsObsMng(){return (ExecCtrlObsMng==mExecCtrl);}
 	bool IsBKGTC() {return (ExecCtrlBKGTC==mExecCtrl);};
 	
 	

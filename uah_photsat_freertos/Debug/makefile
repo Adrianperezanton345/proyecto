@@ -58,8 +58,6 @@ RM := rm -rf
 -include asw/components/cchk_fdirmng/src/subdir.mk
 -include asw/components/ccbkgtcexec/src/subdir.mk
 -include subdir.mk
--include objects.mk
-
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(strip $(C++_DEPS)),)
 -include $(C++_DEPS)
@@ -89,7 +87,7 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := uah_photsat_freertos_resuelto
+BUILD_ARTIFACT_NAME := uah_photsat_freertos
 BUILD_ARTIFACT_EXTENSION :=
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
@@ -100,19 +98,19 @@ BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ART
 all: main-build
 
 # Main-build Target
-main-build: uah_photsat_freertos_resuelto
+main-build: uah_photsat_freertos
 
 # Tool invocations
-uah_photsat_freertos_resuelto: $(OBJS) $(USER_OBJS) makefile objects.mk $(OPTIONAL_TOOL_DEPS)
+uah_photsat_freertos: $(OBJS) $(USER_OBJS) makefile $(OPTIONAL_TOOL_DEPS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C++ Linker'
-	g++  -o "uah_photsat_freertos_resuelto" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "uah_photsat_freertos" $(OBJS) $(USER_OBJS) $(LIBS) -lpthread
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) uah_photsat_freertos_resuelto
+	-$(RM) uah_photsat_freertos
 	-@echo ' '
 
 .PHONY: all clean dependents main-build
