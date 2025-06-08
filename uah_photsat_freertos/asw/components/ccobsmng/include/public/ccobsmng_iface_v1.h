@@ -201,12 +201,12 @@ public:
 
 		//!Transition Identifiers
 		enum TEDROOMTransitionID{Init,
-			DoAttCtrl,
-			DoAttCtrl_ReadyToObs,
-			DoAttCtrl_ProgAttCtrl,
-			IsLastImage,
-			IsLastImage_LastImage,
-			IsLastImage_NoLastImage,
+			DoAttitudeCtrl,
+			DoAttitudeCtrl_GoToObserv,
+			DoAttitudeCtrl_BackToStandBy,
+			LastImage,
+			LastImage_NoMoreImages,
+			LastImage_NotYet,
 			ExecObsMng,
 			EDROOMMemoryTrans };
 

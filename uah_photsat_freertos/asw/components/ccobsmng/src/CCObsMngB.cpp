@@ -240,64 +240,64 @@ void CCObsMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
 				//Next State is StandBy
 				edroomNextState = StandBy;
 				break;
-			//To Choice Point DoAttCtrl
-			case (DoAttCtrl):
+			//To Choice Point DoAttitudeCtrl
+			case (DoAttitudeCtrl):
 
 				//Execute Action 
 				FDoActtitudeCtrl();
-				//Evaluate Branch ReadyToObs
+				//Evaluate Branch GoToObserv
 				if( GReadyToObservation() )
 				{
 					//Execute Action 
 					FToObservation();
 
-					//Branch taken is DoAttCtrl_ReadyToObs
+					//Branch taken is DoAttitudeCtrl_GoToObserv
 					edroomCurrentTrans.localId =
-						DoAttCtrl_ReadyToObs;
+						DoAttitudeCtrl_GoToObserv;
 
 					//Next State is Observation
 					edroomNextState = Observation;
 				 } 
-				//Default Branch ProgAttCtrl
+				//Default Branch BackToStandBy
 				else
 				{
 					//Execute Action 
 					FProgAttitudeCtrl();
 
-					//Branch taken is DoAttCtrl_ProgAttCtrl
+					//Branch taken is DoAttitudeCtrl_BackToStandBy
 					edroomCurrentTrans.localId =
-						DoAttCtrl_ProgAttCtrl;
+						DoAttitudeCtrl_BackToStandBy;
 
 					//Next State is StandBy
 					edroomNextState = StandBy;
 				 } 
 				break;
-			//To Choice Point IsLastImage
-			case (IsLastImage):
+			//To Choice Point LastImage
+			case (LastImage):
 
 				//Execute Action 
 				FTakeImage();
-				//Evaluate Branch LastImage
+				//Evaluate Branch NoMoreImages
 				if( GLastImage() )
 				{
 					//Execute Actions 
 					FEndObservation();
 					FProgAttitudeCtrl();
 
-					//Branch taken is IsLastImage_LastImage
+					//Branch taken is LastImage_NoMoreImages
 					edroomCurrentTrans.localId =
-						IsLastImage_LastImage;
+						LastImage_NoMoreImages;
 
 					//Next State is StandBy
 					edroomNextState = StandBy;
 				 } 
-				//Default Branch NoLastImage
+				//Default Branch NotYet
 				else
 				{
 
-					//Branch taken is IsLastImage_NoLastImage
+					//Branch taken is LastImage_NotYet
 					edroomCurrentTrans.localId =
-						IsLastImage_NoLastImage;
+						LastImage_NotYet;
 
 					//Next State is Observation
 					edroomNextState = Observation;
@@ -407,8 +407,8 @@ TEDROOMTransId CCObsMng::EDROOM_SUB_Top_0::EDROOMStandByArrival()
 				 if (*Msg->GetPInterface() == AttCtrlTimer)
 				{
 
-					//Next transition is  DoAttCtrl
-					edroomCurrentTrans.localId = DoAttCtrl;
+					//Next transition is  DoAttitudeCtrl
+					edroomCurrentTrans.localId = DoAttitudeCtrl;
 					edroomCurrentTrans.distanceToContext = 0 ;
 					edroomValidMsg=true;
 				 }
@@ -472,8 +472,8 @@ TEDROOMTransId CCObsMng::EDROOM_SUB_Top_0::EDROOMObservationArrival()
 				 if (*Msg->GetPInterface() == ObservTimer)
 				{
 
-					//Next transition is  IsLastImage
-					edroomCurrentTrans.localId = IsLastImage;
+					//Next transition is  LastImage
+					edroomCurrentTrans.localId = LastImage;
 					edroomCurrentTrans.distanceToContext = 0 ;
 					edroomValidMsg=true;
 				 }
