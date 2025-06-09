@@ -33,11 +33,11 @@
 #include <public/emu_gss_v1.h>
 
 //TODO Complete FT_UAH_PHOTSAT_SERV_129_0010
-//#define FT_UAH_PHOTSAT_SERV_129_0010
+#define FT_UAH_PHOTSAT_SERV_129_0010
 
 
 
-#define FT_UAH_PHOTSAT_SERV_129_FDIR_0020
+//#define FT_UAH_PHOTSAT_SERV_129_FDIR_0020
 
 
 #ifdef FT_UAH_PHOTSAT_SERV_129_0010
@@ -55,20 +55,20 @@ EmuGSS_TCProgram129_1 prog_FT_0010_step1(OBT_AFTER_POWER_ON + 5,
 #ifdef FT_UAH_PHOTSAT_SERV_129_FDIR_0020
 
 EmuGSS_TCProgram12_5_Value_UINT8 prog_FT_0020_step_0(OBT_AFTER_POWER_ON + 10,
-	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Define PMONID 1 to ThetaPitch_W_ControlPID",1,13,5,1,0x3,0,0x4003);
+	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Define PMONID 1",1,13,1,1,0x05,0,0x4003);
 
 
 EmuGSS_TCProgram12_5_Value_UINT8 prog_FT_0020_step_1(OBT_AFTER_POWER_ON + 20,
-		"FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Define PMONID 1 to ThetaPitch_W_ControlPID",1, 14, 1, 1, 0xFF,  0, 0x4003);
+		"FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Define PMONID 2",2, 14, 1, 1, 0x05,  0, 0x4003);
 
 
 
 EmuGSS_TCProgram12_1 prog_FT_0020_step2(OBT_AFTER_POWER_ON + 30,
-	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Enable PMONID 0 to ThetaPitch_W_ControlPID",0);
+	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Enable PMONID 1",1);
 
 
 EmuGSS_TCProgram12_1 prog_FT_0020_step3(OBT_AFTER_POWER_ON + 40,
-	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Enable PMONID 1 to ThetaPitch_W_ControlPID",1);
+	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Enable PMONID 2",2);
 
 EmuGSS_TCProgram19_1_Action_129_3 prog_FT_0020_step_4(OBT_AFTER_POWER_ON + 50,
 		"FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Set Event Action",0x4003);
@@ -80,7 +80,7 @@ EmuGSS_TCProgram19_4 prog_FT_0020_step5( OBT_AFTER_POWER_ON + 60,
 
 
 EmuGSS_TCProgram129_2 prog_FT_0020_TIME_step_6(OBT_AFTER_POWER_ON + 70,
-	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Set PID Kp=Ki=Kd=0.5 to force max values",0.5f, 0.5f, 0.5f);
+	    "FT_UAH_PHOTSAT_SERV_129_FDIR_0020, Set PID Kp=Ki=Kd=0.5",0.5f, 0.5f, 0.5f);
 
 EmuGSS_TCProgram129_1 prog_FT_0020_TIME_step_7(OBT_AFTER_POWER_ON + 80,
 "FT_UAH_PHOTSAT_SERV_129_0010 step 7, Set Theta Pitch, Set Theta Yaw and Number of Images"
