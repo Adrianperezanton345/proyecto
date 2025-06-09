@@ -64,7 +64,7 @@ bool CCObsMng::EDROOM_CTX_Top_0::EDROOMSearchContextTrans(
 
 	// User-defined Functions   ****************************
 
-void	CCObsMng::EDROOM_CTX_Top_0::FDoActtitudeCtrl()
+void	CCObsMng::EDROOM_CTX_Top_0::FDoAttitudeCtrl()
 
 {
 
@@ -79,7 +79,7 @@ void	CCObsMng::EDROOM_CTX_Top_0::FEndObservation()
 {
 
 VNextTimeOut.GetTime();
-
+ 
 
 }
 
@@ -90,6 +90,10 @@ void	CCObsMng::EDROOM_CTX_Top_0::FExecObsMng_TC()
 {
    //Handle Msg->data
   CDTCHandler & varSSObsMng_TC = *(CDTCHandler *)Msg->data;
+	
+		// Data access
+	
+	// ... =varSSObsMng_TC;
  
  
 	varSSObsMng_TC.ExecTC();
@@ -244,7 +248,7 @@ void CCObsMng::EDROOM_SUB_Top_0::EDROOMBehaviour()
 			case (DoAttitudeCtrl):
 
 				//Execute Action 
-				FDoActtitudeCtrl();
+				FDoAttitudeCtrl();
 				//Evaluate Branch GoToObserv
 				if( GReadyToObservation() )
 				{
