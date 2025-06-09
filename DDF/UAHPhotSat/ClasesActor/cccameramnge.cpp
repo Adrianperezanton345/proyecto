@@ -1,0 +1,130 @@
+
+
+#include <public/cccameramng_iface_v1.h>
+
+
+
+
+
+// ******************************* CONSTRUCTOR ************************************
+
+
+
+CCCameraMng::CCCameraMng(TEDROOMComponentID id,
+		TEDROOMUInt32 roomNumMaxMens,
+		TEDROOMPriority roomtaskPrio,
+		TEDROOMStackSizeType roomStack,
+		CEDROOMMemory *pActorMemory ) : 
+
+		CEDROOMComponent(id,EDROOMprioMINIMUM+1,roomNumMaxMens,
+				roomtaskPrio,roomStack, pActorMemory ),
+
+		// *********** Timing service access point *********
+
+		EDROOMtimingSAP(this, 5,&pActorMemory->TimingMemory),
+
+		// *******************  Timers  ********************
+
+		CameraTimer(&EDROOMtimingSAP, 2 ),
+		AttitudeTimer(&EDROOMtimingSAP, 2 ),
+
+		// ***************	Top State  *****************
+
+		edroomTopState(*this)
+
+
+{
+
+
+}
+
+
+//**************************************************************************
+//**************************   PUBLIC METHODS  *****************************
+
+
+
+//************************** EDROOMConfig **********************************
+
+
+int CCCameraMng::EDROOMConfig()
+{
+
+
+ return 0; 
+}
+
+
+
+//************************** EDROOMStart **********************************
+
+int CCCameraMng::EDROOMStart()
+{
+
+
+	//****************** Timing Task Start*****************
+
+	EDROOMtimingSAP.Start();
+
+	//***************** CEDROOMComponent::EDROOMStart*********
+
+	CEDROOMComponent::EDROOMStart(); 	// Call to EDROOMStart method of CEDROOMComponent
+
+	return 0;
+}
+
+
+//**************************************************************************
+//***************************    PROTECTED METHODS *************************
+
+
+
+//*****************************  EDROOMBehaviour ***************************
+
+
+
+void CCCameraMng::EDROOMBehaviour()
+{
+
+	edroomTopState.EDROOMInit();
+	edroomTopState.EDROOMBehaviour();
+
+}
+
+
+
+
+//********************* ComponentIsFinished **********************************
+
+
+#ifdef _EDROOM_SYSTEM_CLOSE
+
+bool CCCameraMng::EDROOMIsComponentFinished()
+{
+
+
+	return ( CEDROOMComponent::EDROOMIsComponentFinished());
+
+}
+
+#endif
+
+
+//****************** EDROOMMemory::SetMemory *******************************
+
+void CCCameraMng::CEDROOMMemory::SetMemory(TEDROOMUInt32 numMessages_ ,
+		CEDROOMMessage * MessagesMem_,
+		bool * MessagesMemMarks_,
+		TEDROOMUInt32 numberOfNodes_,
+		CEDROOMQueue::CQueueNode * QueueNodesMem_,
+		bool * QueueNodesMemMarks_)
+{
+
+		CEDROOMComponentMemory::SetMemory( numMessages_,MessagesMem_, MessagesMemMarks_,
+			numberOfNodes_,QueueNodesMem_, QueueNodesMemMarks_, QueueHeads);
+
+		TimingMemory.SetMemory(5,TimerInf,&TimerInfMarks[0],TimeOutMsgs,&TimeOutMsgsMarks[0]);
+
+
+}
+

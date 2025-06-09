@@ -1,0 +1,523 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+0
+0
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+3
+[Version Puerto]
+0
+Obs_Mng_Ctrl
+0
+1
+0
+[Version Grafico Puerto]
+0
+49
+4
+CPObs_Mng_Ctrl
+[Version Puerto]
+0
+AttCtrlTimer
+0
+1
+1
+[Version Grafico Puerto]
+0
+23
+28
+EDROOMTimingSAP
+[Version Puerto]
+0
+ObservTimer
+0
+1
+1
+[Version Grafico Puerto]
+0
+72
+38
+EDROOMTimingSAP
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+4
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+1
+[Version Modulo]
+1
+pus_services_iface
+ 
+v1
+ 
+1
+1
+[Eventos]
+2
+[Event]
+[Version]
+1
+EvTimerAttCtrlTimer
+Timer
+[Event]
+[Version]
+1
+EvTimerObservTimer
+Timer
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+3
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+56 66 55 55
+[FinObjetoGrafico]
+StandBy
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+105 288 169 128
+[FinObjetoGrafico]
+Observation
+FProgTakeImage();
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+467 263 199 207
+[FinObjetoGrafico]
+[PuntosEleccion]
+2
+[Version PuntosEleccion]
+2
+LastImage
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+332 139 35 35
+[FinObjetoGrafico]
+DoAttitudeCtrl
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+326 531 35 35
+[FinObjetoGrafico]
+LastImage
+0
+[Ramas]
+2
+[Version Ramas]
+5
+NotYet
+true
+Observation
+DSubEst
+;
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+349 173 604 263 0
+[FinGraficoRama]
+NoMoreImages
+GLastImage()
+StandBy
+DSubEst
+FCEndObs();
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+335 146 274 343 2
+[FinGraficoRama]
+DoAttitudeCtrl
+0
+[Ramas]
+2
+[Version Ramas]
+5
+BackToStandBy
+true
+StandBy
+DSubEst
+FProgAttitudeCtrl();
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+355 536 207 416 3
+[FinGraficoRama]
+GoToObserv
+GReadyToObservation()
+Observation
+DSubEst
+FToObservation();
+
+ 
+
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+358 554 467 338 1
+[FinGraficoRama]
+[Transiciones]
+4
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+StandBy
+DSubEst
+FInit();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+107 104 105 298 2
+[FinGraficoTransicion]
+DoAttitudeCtrl
+StandBy
+OSubEst
+DoAttitudeCtrl
+DPEleccion
+FDoAttitudeCtrl();
+[Trigger]
+AttCtrlTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+130 416 327 540 0
+[FinGraficoTransicion]
+LastImage
+Observation
+OSubEst
+LastImage
+DPEleccion
+FTakeImage();
+[Trigger]
+ObservTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+488 263 339 171 3
+[FinGraficoTransicion]
+ExecObsMng
+StandBy
+OSubEst
+StandBy
+DSubEst
+;
+[Trigger]
+Obs_Mng_Ctrl
+SSObsMng_TC
+true
+ 
+ 
+ 
+FExecObsMng_TC();
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+105 328 105 383 6
+[FinGraficoTransicion]
+[VariablesConstantes]
+2
+[Version VariYConst]
+0
+CImageInterval
+Pr_Time
+0,500000
+Constante
+0
+[Version VariYConst]
+0
+VNextTimeOut
+Pr_Time
+
+Variable
+0
+[Metodos]
+11
+[Version Metodos]
+21
+CompositeAction
+FCEndObs()
+0
+0
+0
+2
+FEndObservation();
+FProgAttitudeCtrl();
+BasicAction
+FDoAttitudeCtrl()
+0
+0
+0
+0
+1
+ 
+1
+pus_service129_do_attitude_ctrl();
+BasicAction
+FEndObservation()
+0
+0
+0
+0
+1
+ 
+2
+VNextTimeOut.GetTime();
+ 
+MsgDataHandler
+FExecObsMng_TC()
+0
+0
+0
+0
+1
+ 
+7
+	
+		// Data access
+	
+	// ... =varSSObsMng_TC;
+ 
+ 
+	varSSObsMng_TC.ExecTC();
+[ServiceRequest]
+Msg->data
+Obs_Mng_Ctrl
+SSObsMng_TC
+CDTCHandler
+EDROOMprioNormal
+Inform
+FInit()
+0
+0
+0
+0
+1
+ 
+8
+	 
+	//Timing Service useful methods
+	 
+	//time.GetTime(); // Get current monotonic time
+	//time.Add(X,Y); // Add X sec + Y microsec
+time.GetTime(); // Get current monotonic time   
+time+=Pr_Time(0,100000); // Add X sec + Y microsec    
+ 
+[ServiceRequest]
+InformAt
+AttCtrlTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+Inform
+FProgAttitudeCtrl()
+0
+0
+0
+0
+1
+ 
+8
+	 
+	//Timing Service useful methods
+	 
+	//time.GetTime(); // Get current monotonic time
+	//time.Add(X,Y); // Add X sec + Y microse
+ 
+VNextTimeOut+= Pr_Time(0,10000); // Add X sec + Y microsec 
+time=VNextTimeOut; 
+[ServiceRequest]
+InformAt
+AttCtrlTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+Inform
+FProgTakeImage()
+0
+0
+0
+0
+1
+ 
+6
+	 
+	//Timing Service useful methods
+	 
+	//time.GetTime(); // Get current monotonic time
+	//time.Add(X,Y); // Add X sec + Y microsec
+	interval=CImageInterval;
+[ServiceRequest]
+InformIn
+ObservTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+BasicAction
+FTakeImage()
+0
+0
+0
+0
+1
+ 
+1
+pus_service129_take_image();
+BasicAction
+FToObservation()
+0
+0
+0
+0
+1
+ 
+1
+pus_service129_start_observation();
+Guard
+GLastImage()
+0
+0
+0
+0
+1
+ 
+1
+pus_service129_is_last_image();
+Guard
+GReadyToObservation()
+0
+0
+0
+0
+1
+ 
+1
+return pus_service129_is_observation_ready();
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]

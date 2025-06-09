@@ -1,0 +1,442 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+1
+1
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+3
+[Version Puerto]
+0
+CameraCtrl
+0
+1
+0
+[Version Grafico Puerto]
+0
+45
+4
+CPCameraCtrl
+[Version Puerto]
+0
+AttitudeTimer
+0
+1
+1
+[Version Grafico Puerto]
+0
+27
+30
+EDROOMTimingSAP
+[Version Puerto]
+0
+CameraTimer
+0
+1
+1
+[Version Grafico Puerto]
+0
+48
+31
+EDROOMTimingSAP
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+4
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+1
+[Version Modulo]
+1
+pus_services_iface
+ 
+v1
+ 
+1
+1
+[Eventos]
+2
+[Event]
+[Version]
+1
+EvTimerAttitudeTimer
+Timer
+[Event]
+[Version]
+1
+EvTimerCameraTimer
+Timer
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+3
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+167 180 90 405
+[FinObjetoGrafico]
+Busy
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+510 183 90 388
+[FinObjetoGrafico]
+[PuntosEleccion]
+2
+[Version PuntosEleccion]
+2
+TakePhoto
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+353 500 35 35
+[FinObjetoGrafico]
+ExecTC
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+358 232 35 35
+[FinObjetoGrafico]
+TakePhoto
+0
+[Ramas]
+2
+[Version Ramas]
+5
+PendingPhotos
+false
+Busy
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+370 500 510 455 1
+[FinGraficoRama]
+ToReady
+GLastImage()
+Ready
+DSubEst
+FToReady();
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+353 517 257 522 2
+[FinGraficoRama]
+ExecTC
+0
+[Ramas]
+2
+[Version Ramas]
+5
+Rama0
+false
+Ready
+DSubEst
+;
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+375 232 257 198 3
+[FinGraficoRama]
+StartObservation
+true
+Busy
+DSubEst
+FProgCamera();
+ 
+ 
+ 
+;
+;
+;
+;
+[GraficoRama]
+[Version GraficoRama]
+0
+392 249 510 250 0
+[FinGraficoRama]
+[Transiciones]
+4
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+FInit();
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+116 120 167 229 0
+[FinGraficoTransicion]
+ExecTC
+Ready
+OSubEst
+ExecTC
+DPEleccion
+;
+[Trigger]
+CameraCtrl
+SCameraTC
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+257 251 358 249 1
+[FinGraficoTransicion]
+TakePhoto
+Busy
+OSubEst
+TakePhoto
+DPEleccion
+;
+[Trigger]
+CameraTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+510 524 385 524 2
+[FinGraficoTransicion]
+DoAttitudeCtrl
+EDROOMEdge
+OBorde
+EDROOMEdge
+DBorde
+FDoAttitudeCtrl();
+[Trigger]
+AttitudeTimer
+EDROOMSignalTimeout
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+268 718 423 718 4
+[FinGraficoTransicion]
+[VariablesConstantes]
+2
+[Version VariYConst]
+0
+CPeriod
+Pr_Time
+1,0
+Constante
+0
+[Version VariYConst]
+0
+VNextTimeOut
+Pr_Time
+
+Variable
+0
+[Metodos]
+5
+[Version Metodos]
+21
+Inform
+FDoAttitudeCtrl()
+0
+0
+0
+0
+1
+ 
+5
+pus_service129_do_attitude_ctrl();
+ 
+VTimeOut+=CPeriod;
+ 
+time=VTimeOut;
+[ServiceRequest]
+InformAt
+CameraTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+Inform
+FInit()
+0
+0
+0
+0
+1
+ 
+5
+ 
+ time.GetTime();
+ time+=CPeriod;
+ 
+ VNextTimeOut=time;
+[ServiceRequest]
+InformAt
+AttitudeTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+Inform
+FProgCamera()
+0
+0
+0
+0
+1
+ 
+2
+ 
+pus_service129_start_observation();
+[ServiceRequest]
+InformIn
+CameraTimer
+EDROOMSignalTimeout
+CDTCHandler
+EDROOMprioNormal
+BasicAction
+FToReady()
+0
+0
+0
+0
+1
+ 
+1
+pus_service129_end_observation();
+Guard
+GLastImage()
+0
+0
+0
+0
+1
+ 
+1
+return true;
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]

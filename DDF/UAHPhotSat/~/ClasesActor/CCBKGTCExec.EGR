@@ -1,0 +1,178 @@
+[Version Actor SW]
+5
+0
+0
+0
+0
+[Modificado]
+0
+0
+0
+[Estructura]
+[Version Estructura]
+3
+[Parametro]
+NULL
+ 
+ 
+[FinParametro]
+[Stack]
+1
+[FinStack]
+[Puertos]
+1
+[Version Puerto]
+0
+BKGExecCtrl
+0
+1
+0
+[Version Grafico Puerto]
+0
+48
+4
+CPBKGExecCtrl
+[FinPuertos]
+[ActoresComponente]
+0
+[FinActoresComponente]
+[Uniones]
+0
+[FinUniones]
+[NumTimers]
+0
+[FinNumTimers]
+[NumMsgDef]
+10
+[FinNumMsgDef]
+[FinEstructura]
+[Comportamiento]
+[Version Comportamiento]
+3
+0
+[Pools]
+0
+[Modulos]
+0
+[Eventos]
+0
+[Maquina de Estados]
+[Version Maquina de Estados]
+1
+Top
+NULL
+[Subestados]
+2
+[Version SubEstados]
+3
+I
+;
+;
+;
+;
+;
+0
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+73 73 55 55
+[FinObjetoGrafico]
+Ready
+;
+;
+;
+;
+;
+1
+0
+[ObjetoGrafico]
+[Version Objeto Grafico]
+0
+235 251 147 120
+[FinObjetoGrafico]
+[PuntosEleccion]
+0
+[Version PuntosEleccion]
+2
+[Transiciones]
+2
+[Version Transicion]
+5
+Init
+I
+OSubEstI
+Ready
+DSubEst
+;
+[Trigger]
+EDROOMsl
+EDROOMStart
+true
+ 
+ 
+ 
+;
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+113 122 235 285 0
+[FinGraficoTransicion]
+ExecTC
+Ready
+OSubEst
+Ready
+DSubEst
+;
+[Trigger]
+BKGExecCtrl
+SBKGTC
+true
+ 
+ 
+ 
+FExecBKGTC();
+;
+;
+0
+;
+[GraficoTransicion]
+[Version GraficoTransicion]
+0
+235 298 235 355 6
+[FinGraficoTransicion]
+[VariablesConstantes]
+0
+[Metodos]
+1
+[Version Metodos]
+21
+MsgDataHandler
+FExecBKGTC()
+0
+0
+0
+0
+1
+ 
+5
+ 
+	
+		// Data access
+	
+	varSBKGTC.ExecTC();
+[ServiceRequest]
+Msg->data
+BKGExecCtrl
+SBKGTC
+CDTCHandler
+EDROOMprioNormal
+[MaquinasSubEstados]
+0
+[FinMaquinasSubEstados]
+[Fin Maquina de Estados]
+[FinComportamiento]
